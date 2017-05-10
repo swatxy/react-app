@@ -6,23 +6,23 @@ export default function (kibana) {
     require: ['elasticsearch'],
 
     uiExports: {
-      
+
       app: {
         title: 'React App',
         description: 'An awesome Kibana plugin',
         main: 'plugins/react_app/app'
       },
-      
-      
+
+
       translations: [
         resolve(__dirname, './translations/es.json')
       ],
-      
-      
+
+
       hacks: [
         'plugins/react_app/hack'
       ]
-      
+
     },
 
     config(Joi) {
@@ -31,12 +31,12 @@ export default function (kibana) {
       }).default();
     },
 
-    
+
     init(server, options) {
       // Add server routes and initalize the plugin here
       exampleRoute(server);
     }
-    
+
 
   });
 };

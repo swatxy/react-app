@@ -21,5 +21,21 @@
     "chai": "^3.5.0",
     "eslint": "1.10.3",
     "eslint-plugin-mocha": "1.1.0"
+  },
+  "dependencies": {
+    "angular": "1.4.7",
+    "history": "^4.6.1",
+    "jquery": "^2.2.4",
+    "lodash": "^3.10.1",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^4.4.8",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
+    "redux-thunk": "^0.1.0",
+    "redux-undo": "^0.6.1"
   }
 }
