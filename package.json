@@ -23,10 +23,6 @@
     "eslint-plugin-mocha": "1.1.0"
   },
   "dependencies": {
-    "angular": "1.4.7",
-    "history": "^4.6.1",
-    "jquery": "^2.2.4",
-    "lodash": "^3.10.1",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
