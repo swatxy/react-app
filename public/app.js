@@ -25,9 +25,6 @@ app.config(['$routeProvider', ($routeProvider) => {
     .when('/list/:id', {
       template: detail,
       controller: 'RouteDetailCtl'
-    })
-    .otherwise({
-      redirectTo: '/list'
     });
 }]);
 
