@@ -18,6 +18,8 @@ export default function (server) {
     path: '/api/react_app/example',
     method: 'GET',
     handler(request, reply) {
+      request.log([`${pluginId}`, 'info'], 'Test for request.log');
+      server.log([`${pluginId}`, 'info'], 'Test for server.log');
       reply({time: (new Date()).toISOString()});
     }
   });
@@ -31,11 +33,11 @@ export default function (server) {
       callWithRequest(request, 'cluster.health')
         .then(
           (response) => {
-            server.log([`plugin:${pluginId}`, 'info'], `Cluster status is: ${response.status}`);
+            server.log([`${pluginId}`, 'info'], `Cluster status is: ${response.status}`);
             reply(response);
           },
           (error) => {
-            server.log([`plugin:${pluginId}`, 'error'], 'Error while executing search');
+            server.log([`${pluginId}`, 'error'], 'Error while executing search');
             reply(error);
           }
         );
