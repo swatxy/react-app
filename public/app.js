@@ -1,3 +1,4 @@
+import chrome from 'ui/chrome';
 import routes from 'ui/routes';
 import { uiModules } from 'ui/modules';
 
@@ -8,6 +9,9 @@ import list from './templates/list.html';
 import detail from './templates/detail.html';
 
 import './directives/react';
+
+console.log(chrome.getInjected('forThisPlugin'));
+console.log(chrome.getInjected('forAllPlugin'));
 
 routes.enable();
 

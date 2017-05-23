@@ -6,10 +6,12 @@ export default function (server) {
   server.ext({
     type: 'onPreHandler',
     method: (request, reply) => {
-      console.log('========================');
-      console.log('method', JSON.stringify(_.get(request, 'method', '')));
-      console.log('path', JSON.stringify(_.get(request, 'path', '')));
-      console.log('query', JSON.stringify(_.get(request, 'query', '')));
+      let data = {
+        method: _.get(request, 'method', ''),
+        path: _.get(request, 'path', ''),
+        query: _.get(request, 'query', '')
+      };
+      request.log([`${pluginId}`, 'info', 'onPreHandler'], data);
       reply.continue();
     }
   });

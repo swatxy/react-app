@@ -2,7 +2,7 @@ import exampleRoute from './server/routes/example';
 
 export default function (kibana) {
   return new kibana.Plugin({
-    require: ['kibana', 'elasticsearch'],
+    require: ['elasticsearch'],
     uiExports: {
       app: {
         title: 'React App',
@@ -10,17 +10,15 @@ export default function (kibana) {
         main: 'plugins/react_app/app',
         injectVars: function (server) {
           const config = server.config();
-          // visible to `myplugin`
           return {
-            kbnIndex: config.get('kibana.index')
+            forThisPlugin: config.get('kibana.index')
           };
         }
       },
       injectDefaultVars(server) {
         const config = server.config();
-        // visible to any plugin
         return {
-          kbnIndex: config.get('kibana.index')
+          forAnyPlugin: config.get('kibana.index')
         };
       },
       hacks: [
@@ -29,11 +27,11 @@ export default function (kibana) {
     },
     config(Joi) {
       return Joi.object({
-        enabled: Joi.boolean().default(true),
+        enabled: Joi.boolean().default(true)
       }).default();
     },
     init(server, options) {
-      exampleRoute(server);
+      exampleRoute(server, options);
     }
   });
 };
