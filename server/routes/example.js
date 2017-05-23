@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 export default function (server) {
+  const pluginId = server.plugins.react_app.status.id;
+
   server.ext({
     type: 'onPreHandler',
     method: (request, reply) => {
@@ -29,11 +31,12 @@ export default function (server) {
       callWithRequest(request, 'cluster.health')
         .then(
           (response) => {
-            server.log(['plugin:react_app@0.0.0', 'info'], `Cluster status is: ${response.status}`);
+            server.log([`plugin:${pluginId}`, 'info'], `Cluster status is: ${response.status}`);
             reply(response);
           },
           (error) => {
-            server.log(['plugin:react_app@0.0.0', 'warning'], 'Error while executing search', error);
+            server.log([`plugin:${pluginId}`, 'error'], 'Error while executing search');
+            reply(error);
           }
         );
     }

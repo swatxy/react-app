@@ -7,7 +7,21 @@ export default function (kibana) {
       app: {
         title: 'React App',
         description: 'An awesome Kibana plugin',
-        main: 'plugins/react_app/app'
+        main: 'plugins/react_app/app',
+        injectVars: function (server) {
+          const config = server.config();
+          // visible to `myplugin`
+          return {
+            kbnIndex: config.get('kibana.index')
+          };
+        }
+      },
+      injectDefaultVars(server) {
+        const config = server.config();
+        // visible to any plugin
+        return {
+          kbnIndex: config.get('kibana.index')
+        };
       },
       hacks: [
         'plugins/react_app/hack'
@@ -19,7 +33,6 @@ export default function (kibana) {
       }).default();
     },
     init(server, options) {
-      // Add server routes and initalize the plugin here
       exampleRoute(server);
     }
   });

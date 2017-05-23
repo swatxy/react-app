@@ -12,7 +12,10 @@ import './directives/react';
 routes.enable();
 
 routes
-  .when('/?', {template});
+  .when('/?', {template})
+  .when('/roster?', {template})
+  .when('/roster/:number?', {template})
+  .when('/schedule?', {template});
 
 const app = uiModules.get('app/react_app', ['ngRoute']);
 
