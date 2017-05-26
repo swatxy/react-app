@@ -8,19 +8,19 @@ export default function (kibana) {
         title: 'React App',
         description: 'An awesome Kibana plugin',
         main: 'plugins/react_app/app',
-        injectVars: function (server) {
-          const config = server.config();
-          return {
-            forThisPlugin: config.get('kibana.index')
-          };
-        }
+        // injectVars: function (server) {
+        //   const config = server.config();
+        //   return {
+        //     forThisPlugin: config.get('kibana.index')
+        //   };
+        // }
       },
-      injectDefaultVars(server) {
-        const config = server.config();
-        return {
-          forAnyPlugin: config.get('kibana.index')
-        };
-      },
+      // injectDefaultVars(server, options) {
+      //   const config = server.config();
+      //   return {
+      //     forAnyPlugin: config.get('kibana.index')
+      //   };
+      // },
       hacks: [
         'plugins/react_app/hack'
       ],

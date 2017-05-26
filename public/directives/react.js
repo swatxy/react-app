@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-
-import todoApp from '../reducers';
+import reducers from '../reducers';
 import App from '../components/App';
 
 const logger = createLogger({
@@ -15,16 +14,17 @@ const logger = createLogger({
 });
 
 const store = createStore(
-  todoApp,
+  reducers,
   applyMiddleware(thunk, logger)
 );
 
 const app = uiModules.get('app/react_app', []);
+
 app.directive('react', () => {
   function link(scope, element, attrs) {
     render(
       <Provider store={store}>
-        <App/>
+        <App />
       </Provider>,
       element[0]
     );

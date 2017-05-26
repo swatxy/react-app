@@ -45,4 +45,52 @@ export default function (server) {
         );
     }
   });
+
+  server.route({
+    method: 'GET',
+    path: '/api/react_app/indices',
+    handler(request, reply) {
+      callWithRequest(request, 'indices.get', {
+        index: '_all',
+        type: '_mapping'
+      })
+        .then(
+          (response) => {
+            let indices = _(response).keys().sort((a, b) => {
+              return a.localeCompare(b);
+            }).values();
+            reply(indices);
+          },
+          (error) => {
+            server.log([`${pluginId}`, 'error'], 'Error while executing search');
+            reply(error);
+          }
+        );
+    }
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/api/react_app/mappings',
+    handler(request, reply) {
+      callWithRequest(request, 'indices.get', {
+        index: '_all',
+        type: '_mapping'
+      })
+        .then(
+          (response) => {
+            let mappings = _(response).map((m) => {
+              return _.keys(m.mappings);
+            }).flatten().uniq().sort((a, b) => {
+              return a.localeCompare(b);
+            }).values();
+            reply(mappings);
+          },
+          (error) => {
+            server.log([`${pluginId}`, 'error'], 'Error while executing search');
+            reply(error);
+          }
+        );
+    }
+  });
 }
