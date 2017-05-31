@@ -12,6 +12,10 @@ class MSearch extends React.Component {
     indicesActions.fetchHosts();
   }
 
+  handleClick(indicesActions) {
+    indicesActions.clickButton(this.refs);
+  }
+
   render() {
     const {indices} = this.props;
     const {indicesActions} = this.props;
@@ -57,7 +61,7 @@ class MSearch extends React.Component {
             <div className="kuiLocalSearch">
               <input type="text" className="kuiLocalSearchInput"
                      placeholder="Search... (e.g. status:200 AND extension:PHP)" onChange={indicesActions.changeInput}/>
-              <button className="kuiLocalSearchButton" onClick={indicesActions.clickButton}>
+              <button className="kuiLocalSearchButton" ref="theButton" onClick={() => this.handleClick(indicesActions)}>
                 <span className="kuiIcon fa-search"/>
               </button>
             </div>

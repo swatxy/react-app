@@ -86,7 +86,8 @@ export function changeInput(event) {
   };
 }
 
-export function clickButton() {
+export function clickButton(refs) {
+  console.log(refs);
   return (dispatch, getState) => {
     const {indices} = getState();
     let form = new FormData();
