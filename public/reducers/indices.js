@@ -10,11 +10,14 @@ const initState = {
   columns: [{
     Header: '_index',
     accessor: '_index',
-    maxWidth: 100
+    maxWidth: 200
   }, {
-    id: 'source',
-    Header: '_source',
-    accessor: _source => JSON.stringify(_source)
+    Header: '@timestamp',
+    accessor: '_source.@timestamp',
+    maxWidth: 200
+  }, {
+    Header: '@message',
+    accessor: '_source.@message'
   }]
 };
 

@@ -40,18 +40,25 @@ class MSearch extends React.Component {
         </CheckboxGroup>
         搜索
         <br/>
-        <div className="kuiSearchInput">
-          <div className="kuiSearchInput__icon kuiIcon fa-search"/>
-          <input type="text" className="kuiSearchInput__input" onChange={indicesActions.changeInput}/>
+        <div className="kuiLocalNav--search">
+          <div className="kuiLocalNavRow kuiLocalNavRow--search">
+            <div className="kuiLocalSearch">
+              <input type="text" className="kuiLocalSearchInput"
+                     placeholder="Search... (e.g. status:200 AND extension:PHP)" onChange={indicesActions.changeInput}/>
+              <button className="kuiLocalSearchButton" onClick={indicesActions.clickButton}>
+                <span className="kuiIcon fa-search"/>
+              </button>
+            </div>
+          </div>
         </div>
-        <button className="kuiButton kuiButton--basic" onClick={indicesActions.clickButton}>
-          <span className="kuiButton__inner">
-            <span>搜索</span>
-          </span>
-        </button>
         <br/>
-        <br/>
-        <ReactTable data={indices.data} columns={indices.columns}/>
+        <ReactTable data={indices.data} columns={indices.columns} defaultPageSize={10} SubComponent={(row) => {
+          return (
+            <div style={{padding: '20px'}}>
+              <pre><code>{JSON.stringify(row.original._source, null, 2)}</code></pre>
+            </div>
+          );
+        }}/>
       </div>
     );
   }
