@@ -24,7 +24,7 @@ app.directive('react', () => {
   function link(scope, element, attrs) {
     render(
       <Provider store={store}>
-        <App />
+        <App/>
       </Provider>,
       element[0]
     );

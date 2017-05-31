@@ -1,10 +1,10 @@
-import * as constants from '../constants';
+import { INCREMENT_COUNTER, DECREMENT_COUNTER } from '../constants';
 
 const counter = (state = 0, action) => {
   switch (action.type) {
-    case constants.INCREMENT_COUNTER:
+    case INCREMENT_COUNTER:
       return state + 1;
-    case constants.DECREMENT_COUNTER:
+    case DECREMENT_COUNTER:
       return state - 1;
     default:
       return state;

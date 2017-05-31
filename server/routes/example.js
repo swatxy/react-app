@@ -93,4 +93,13 @@ export default function (server) {
         );
     }
   });
+
+  server.route({
+    method: 'POST',
+    path: '/api/react_app/msearch',
+    handler(request, reply) {
+      console.log(request.payload);
+      reply.continue();
+    }
+  });
 }

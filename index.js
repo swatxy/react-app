@@ -11,7 +11,7 @@ export default function (kibana) {
         // injectVars: function (server) {
         //   const config = server.config();
         //   return {
-        //     forThisPlugin: config.get('kibana.index')
+        //     forThisPlugin: config.get('server.basePath')
         //   };
         // }
       },

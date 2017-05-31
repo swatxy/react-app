@@ -1,14 +1,14 @@
-import * as constants from '../constants';
+import { INCREMENT_COUNTER, DECREMENT_COUNTER } from '../constants';
 
 export function increment() {
   return {
-    type: constants.INCREMENT_COUNTER
+    type: INCREMENT_COUNTER
   };
 }
 
 export function decrement() {
   return {
-    type: constants.DECREMENT_COUNTER
+    type: DECREMENT_COUNTER
   };
 }
 
