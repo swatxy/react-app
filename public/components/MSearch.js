@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 class MSearch extends React.Component {
   componentWillMount() {
     const {indicesActions} = this.props;
-    indicesActions.fetchIndices();
-    indicesActions.fetchMappings();
+    indicesActions.fetchDatabases();
+    indicesActions.fetchTables();
   }
 
   render() {
@@ -15,23 +17,23 @@ class MSearch extends React.Component {
     return (
       <div>
         索引
-        <CheckboxGroup name="databases" value={indices.databasesCheck} onChange={indicesActions.checkIndices}>
+        <CheckboxGroup name="databases" value={indices.databasesCheck} onChange={indicesActions.checkDatabases}>
           {
-            indices.databases.map((index, i) => (
+            indices.databases.map((database, i) => (
               <label key={i}>
-                <Checkbox className="kuiCheckBox" value={index}/>
-                <span className="kuiCheckBoxLabel__text">{index}</span>
+                <Checkbox value={database}/>
+                <span>{database}</span>
               </label>
             ))
           }
         </CheckboxGroup>
         类型
-        <CheckboxGroup name="tables" value={indices.tablesCheck} onChange={indicesActions.checkMappings}>
+        <CheckboxGroup name="tables" value={indices.tablesCheck} onChange={indicesActions.checkTables}>
           {
-            indices.tables.map((mapping, i) => (
+            indices.tables.map((table, i) => (
               <label key={i}>
-                <Checkbox className="kuiCheckBox" value={mapping}/>
-                <span className="kuiCheckBoxLabel__text">{mapping}</span>
+                <Checkbox value={table}/>
+                <span>{table}</span>
               </label>
             ))
           }
@@ -47,10 +49,9 @@ class MSearch extends React.Component {
             <span>搜索</span>
           </span>
         </button>
-        <div className="container">
-          <table id="example" ref="example" className="table table-striped table-bordered table-hover table-condensed"
-                 width="100%"/>
-        </div>
+        <br/>
+        <br/>
+        <ReactTable data={indices.data} columns={indices.columns}/>
       </div>
     );
   }

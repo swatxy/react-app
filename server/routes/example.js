@@ -98,8 +98,28 @@ export default function (server) {
     method: 'POST',
     path: '/api/react_app/msearch',
     handler(request, reply) {
-      console.log(request.payload);
-      reply.continue();
+      let databasesCheck = request.payload.databasesCheck;
+      let tablesCheck = request.payload.tablesCheck;
+      let searchVal = request.payload.searchVal;
+      let body = [];
+      databasesCheck.split(',').map(database => {
+        tablesCheck.split(',').map(table => {
+          body.push({index: database, type: table});
+          body.push({query: {query_string: {query: searchVal}}});
+        });
+      });
+      callWithRequest(request, 'msearch', {
+        body: body
+      })
+        .then(
+          (response) => {
+            reply(response);
+          },
+          (error) => {
+            server.log([`${pluginId}`, 'error'], 'Error while executing search');
+            reply(error);
+          }
+        );
     }
   });
 }

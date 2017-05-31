@@ -1,49 +1,49 @@
 import chrome from 'ui/chrome';
 import fetch from 'isomorphic-fetch';
-import { LOAD_INDICES, LOAD_MAPPINGS, CHECK_INDICES, CHECK_MAPPINGS, CHANGE_INPUT, CLICK_BUTTON }  from '../constants';
+import { LOAD_DATABASES, LOAD_TABLES, CHECK_DATABASES, CHECK_TABLES, CHANGE_INPUT, CLICK_BUTTON }  from '../constants';
 
 const basePath = chrome.getBasePath();
 
-export function loadIndices(databases) {
+export function loadDatabases(databases) {
   return {
-    type: LOAD_INDICES,
+    type: LOAD_DATABASES,
     databases
   };
 }
 
-export function fetchIndices() {
+export function fetchDatabases() {
   return dispatch => {
     fetch(`${basePath}/api/react_app/indices`)
       .then(response => response.json())
-      .then(data => dispatch(loadIndices(data)));
+      .then(data => dispatch(loadDatabases(data)));
   };
 }
 
-export function loadMappings(tables) {
+export function loadTables(tables) {
   return {
-    type: LOAD_MAPPINGS,
+    type: LOAD_TABLES,
     tables
   };
 }
 
-export function fetchMappings() {
+export function fetchTables() {
   return dispatch => {
     fetch(`${basePath}/api/react_app/mappings`)
       .then(response => response.json())
-      .then(data => dispatch(loadMappings(data)));
+      .then(data => dispatch(loadTables(data)));
   };
 }
 
-export function checkIndices(databasesCheck) {
+export function checkDatabases(databasesCheck) {
   return {
-    type: CHECK_INDICES,
+    type: CHECK_DATABASES,
     databasesCheck
   };
 }
 
-export function checkMappings(tablesCheck) {
+export function checkTables(tablesCheck) {
   return {
-    type: CHECK_MAPPINGS,
+    type: CHECK_TABLES,
     tablesCheck
   };
 }
@@ -69,6 +69,13 @@ export function clickButton() {
       },
       body: form
     })
-      .then(dispatch({type: CLICK_BUTTON}));
+      .then(response => response.json())
+      .then(data => {
+        let result = [];
+        data.responses.map(obj => {
+          result.push(...obj.hits.hits);
+        });
+        dispatch({type: CLICK_BUTTON, result});
+      });
   };
 }

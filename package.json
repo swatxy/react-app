@@ -33,6 +33,7 @@
     "react-redux": "^4.4.8",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-table": "^6.0.5",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^0.1.0"
