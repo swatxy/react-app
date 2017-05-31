@@ -1,6 +1,15 @@
 import chrome from 'ui/chrome';
 import fetch from 'isomorphic-fetch';
-import { LOAD_DATABASES, LOAD_TABLES, CHECK_DATABASES, CHECK_TABLES, CHANGE_INPUT, CLICK_BUTTON }  from '../constants';
+import {
+  LOAD_DATABASES,
+  LOAD_TABLES,
+  LOAD_HOSTS,
+  CHECK_DATABASES,
+  CHECK_TABLES,
+  CHECK_HOSTS,
+  CHANGE_INPUT,
+  CLICK_BUTTON
+}  from '../constants';
 
 const basePath = chrome.getBasePath();
 
@@ -34,6 +43,21 @@ export function fetchTables() {
   };
 }
 
+export function loadHosts(hosts) {
+  return {
+    type: LOAD_HOSTS,
+    hosts
+  };
+}
+
+export function fetchHosts() {
+  return dispatch => {
+    fetch(`${basePath}/api/react_app/hosts`)
+      .then(response => response.json())
+      .then(data => dispatch(loadHosts(data)));
+  };
+}
+
 export function checkDatabases(databasesCheck) {
   return {
     type: CHECK_DATABASES,
@@ -45,6 +69,13 @@ export function checkTables(tablesCheck) {
   return {
     type: CHECK_TABLES,
     tablesCheck
+  };
+}
+
+export function checkHosts(hostsCheck) {
+  return {
+    type: CHECK_HOSTS,
+    hostsCheck
   };
 }
 
@@ -61,6 +92,7 @@ export function clickButton() {
     let form = new FormData();
     form.append('databasesCheck', indices.databasesCheck);
     form.append('tablesCheck', indices.tablesCheck);
+    form.append('hostsCheck', indices.hostsCheck);
     form.append('searchVal', indices.searchVal);
     fetch(`${basePath}/api/react_app/msearch`, {
       method: 'POST',

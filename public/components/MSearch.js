@@ -9,6 +9,7 @@ class MSearch extends React.Component {
     const {indicesActions} = this.props;
     indicesActions.fetchDatabases();
     indicesActions.fetchTables();
+    indicesActions.fetchHosts();
   }
 
   render() {
@@ -34,6 +35,17 @@ class MSearch extends React.Component {
               <label key={i}>
                 <Checkbox value={table}/>
                 <span>{table}</span>
+              </label>
+            ))
+          }
+        </CheckboxGroup>
+        主机
+        <CheckboxGroup name="hosts" value={indices.hostsCheck} onChange={indicesActions.checkHosts}>
+          {
+            indices.hosts.map((host, i) => (
+              <label key={i}>
+                <Checkbox value={host}/>
+                <span>{host}</span>
               </label>
             ))
           }

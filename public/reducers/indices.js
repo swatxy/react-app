@@ -1,10 +1,21 @@
-import { LOAD_DATABASES, LOAD_TABLES, CHECK_DATABASES, CHECK_TABLES, CHANGE_INPUT, CLICK_BUTTON }  from '../constants';
+import {
+  LOAD_DATABASES,
+  LOAD_TABLES,
+  LOAD_HOSTS,
+  CHECK_DATABASES,
+  CHECK_TABLES,
+  CHECK_HOSTS,
+  CHANGE_INPUT,
+  CLICK_BUTTON
+}  from '../constants';
 
 const initState = {
   databases: [],
   databasesCheck: [],
   tables: [],
   tablesCheck: [],
+  hosts: [],
+  hostsCheck: [],
   searchVal: '',
   data: [],
   columns: [{
@@ -27,10 +38,14 @@ const indices = (state = initState, action) => {
       return Object.assign({}, state, {databases: action.databases});
     case LOAD_TABLES:
       return Object.assign({}, state, {tables: action.tables});
+    case LOAD_HOSTS:
+      return Object.assign({}, state, {hosts: action.hosts});
     case CHECK_DATABASES:
       return Object.assign({}, state, {databasesCheck: action.databasesCheck});
     case CHECK_TABLES:
       return Object.assign({}, state, {tablesCheck: action.tablesCheck});
+    case CHECK_HOSTS:
+      return Object.assign({}, state, {hostsCheck: action.hostsCheck});
     case CHANGE_INPUT:
       return Object.assign({}, state, {searchVal: action.searchVal});
     case CLICK_BUTTON:

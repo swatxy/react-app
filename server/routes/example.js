@@ -95,17 +95,60 @@ export default function (server) {
   });
 
   server.route({
+    method: 'GET',
+    path: '/api/react_app/hosts',
+    handler(request, reply) {
+      callWithRequest(request, 'search', {
+        index: '_all',
+        body: {
+          aggs: {
+            hosts: {
+              terms: {
+                field: 'clientip'
+              }
+            }
+          }
+        }
+      })
+        .then(
+          (response) => {
+            let hosts = _(response.aggregations.hosts.buckets).map((bucket) => {
+              return bucket.key;
+            });
+            reply(hosts);
+          },
+          (error) => {
+            server.log([`${pluginId}`, 'error'], 'Error while executing search');
+            reply(error);
+          }
+        );
+    }
+  });
+
+  server.route({
     method: 'POST',
     path: '/api/react_app/msearch',
     handler(request, reply) {
       let databasesCheck = request.payload.databasesCheck;
       let tablesCheck = request.payload.tablesCheck;
+      let hostsCheck = request.payload.hostsCheck;
       let searchVal = request.payload.searchVal;
       let body = [];
+      let hosts = [];
+      hostsCheck.split(',').map(host => {
+        if (host !== '') {
+          hosts.push(`clientip:"${host}"`);
+        }
+      });
       databasesCheck.split(',').map(database => {
         tablesCheck.split(',').map(table => {
           body.push({index: database, type: table});
-          body.push({query: {query_string: {query: searchVal}}});
+          let querydsl = `${searchVal}`;
+          if (hosts.length > 0) {
+            querydsl = `(${searchVal}) AND (${hosts.join(' OR ')})`;
+          }
+          server.log([`${pluginId}`, 'info', 'msearch'], `querydsl:${querydsl}`);
+          body.push({query: {query_string: {query: querydsl}}});
         });
       });
       callWithRequest(request, 'msearch', {

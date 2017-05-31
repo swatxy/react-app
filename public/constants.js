@@ -3,7 +3,9 @@ export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 
 export const LOAD_DATABASES = 'LOAD_DATABASES';
 export const LOAD_TABLES = 'LOAD_TABLES';
+export const LOAD_HOSTS = 'LOAD_HOSTS';
 export const CHECK_DATABASES = 'CHECK_DATABASES';
 export const CHECK_TABLES = 'CHECK_TABLES';
+export const CHECK_HOSTS = 'CHECK_HOSTS';
 export const CHANGE_INPUT = 'CHANGE_INPUT';
 export const CLICK_BUTTON = 'CLICK_BUTTON';
