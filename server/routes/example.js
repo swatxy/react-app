@@ -148,7 +148,7 @@ export default function (server) {
             querydsl = `(${searchVal}) AND (${hosts.join(' OR ')})`;
           }
           server.log([`${pluginId}`, 'info', 'msearch'], `querydsl:${querydsl}`);
-          body.push({query: {query_string: {query: querydsl}}});
+          body.push({query: {query_string: {query: querydsl}}, size: 100});
         });
       });
       callWithRequest(request, 'msearch', {

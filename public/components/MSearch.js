@@ -71,7 +71,7 @@ class MSearch extends React.Component {
         <ReactTable data={indices.data} columns={indices.columns} defaultPageSize={10} SubComponent={(row) => {
           return (
             <div style={{padding: '20px'}}>
-              <pre><code>{JSON.stringify(row.original._source, null, 2)}</code></pre>
+              <pre><code>{JSON.stringify(row.original, null, 2)}</code></pre>
             </div>
           );
         }}/>
